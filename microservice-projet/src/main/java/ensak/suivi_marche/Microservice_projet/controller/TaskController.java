@@ -1,6 +1,8 @@
 package ensak.suivi_marche.Microservice_projet.controller;
 
-
+import ensak.suivi_marche.Microservice_projet.model.Task;
+import ensak.suivi_marche.Microservice_projet.exception.ResourceNotFoundException;
+import ensak.suivi_marche.Microservice_projet.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +16,7 @@ import ensak.suivi_marche.Microservice_projet.repository.TaskRepository;
 import javax.validation.Valid;
 
 @RestController
-public class TaskController {
+public class    TaskController {
 
     @Autowired
     private TaskRepository taskRepository;

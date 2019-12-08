@@ -1,6 +1,10 @@
 package ensak.suivi_marche.Microservice_projet.controller;
 
 
+import ensak.suivi_marche.Microservice_projet.model.Comment;
+import ensak.suivi_marche.Microservice_projet.exception.ResourceNotFoundException;
+import ensak.suivi_marche.Microservice_projet.repository.CommentRepository;
+import ensak.suivi_marche.Microservice_projet.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
