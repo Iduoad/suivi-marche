@@ -1,13 +1,15 @@
-package ensak.marche.controller;
+package ensak.suivi_marche.Microservice_projet.controller;
 
-import ensak.marche.exception.ResourceNotFoundException;
-import ensak.marche.model.Project;
-import ensak.marche.repository.ProjectRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import ensak.suivi_marche.Microservice_projet.exception.ResourceNotFoundException;
+import ensak.suivi_marche.Microservice_projet.model.Project;
+import ensak.suivi_marche.Microservice_projet.repository.ProjectRepository;
 
 import javax.validation.Valid;
 import java.util.Optional;

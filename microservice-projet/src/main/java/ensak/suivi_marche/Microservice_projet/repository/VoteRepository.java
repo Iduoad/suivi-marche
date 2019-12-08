@@ -1,9 +1,11 @@
-package ensak.marche.repository;
+package ensak.suivi_marche.Microservice_projet.repository;
 
-import ensak.marche.model.Vote;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import ensak.suivi_marche.Microservice_projet.model.Vote;
 
 import java.util.Optional;
 

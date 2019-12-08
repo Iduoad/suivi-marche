@@ -1,4 +1,4 @@
-package ensak.marche.model;
+package ensak.suivi_marche.Microservice_projet.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;

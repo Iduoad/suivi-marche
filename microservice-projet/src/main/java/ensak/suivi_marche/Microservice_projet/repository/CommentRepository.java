@@ -1,9 +1,11 @@
-package ensak.marche.repository;
+package ensak.suivi_marche.Microservice_projet.repository;
 
-import ensak.marche.model.Comment;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import ensak.suivi_marche.Microservice_projet.model.Comment;
 
 import java.util.Optional;
 

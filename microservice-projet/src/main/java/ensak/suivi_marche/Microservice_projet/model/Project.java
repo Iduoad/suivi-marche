@@ -1,4 +1,4 @@
-package ensak.marche.model;
+package ensak.suivi_marche.Microservice_projet.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
