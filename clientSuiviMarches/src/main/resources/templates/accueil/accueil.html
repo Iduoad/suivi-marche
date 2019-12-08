@@ -1,23 +1,49 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Suivi des marches</title>
+<title>Suivi des marches</title>
 
-    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
 
 </head>
 <body>
 
 
-<div class="container">
+	<div class="container">
 
-    <h1 class="text-center" >Application Suivi des marches</h1>
+		<h1 class="text-center">Application Suivi des marches</h1>
 
-  
-</div>
+		<table border="2">
+			<thead>
+				<tr>
+					<th>name</th>
+					<th>email</th>
+					<th>job</th>
+					<th>service</th>
 
 
-<script type="text/javascript" src="webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+				</tr>
+			</thead>
+			<tbody>
+				<tr:block th:each="e : ${employees}">
+
+					<td th:text="${e.name}"></td>
+					<td th:text="${e.email}"></td>
+					<td th:text="${e.job}"></td>
+					<td th:text="${e.service.label}"></td>
+
+
+					</tr>
+			</tbody>
+		</table>
+
+
+	</div>
+
+
+	<script type="text/javascript"
+		src="webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
 
 </body>
 </html>
