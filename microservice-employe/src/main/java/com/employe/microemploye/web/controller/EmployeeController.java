@@ -4,8 +4,12 @@ import com.employe.microemploye.dao.EmployeeDao;
 import com.employe.microemploye.model.Employee;
 import com.employe.microemploye.web.exceptions.EmployeeNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -53,5 +57,39 @@ public class EmployeeController {
 
         return employees;
     }
+
+
+    @PostMapping("/employees")
+    public ResponseEntity<Object> createEmployee(@RequestBody Employee employee) {
+        Employee savedEmployee = employeeDao.save(employee);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(savedEmployee.getId()).toUri();
+
+        return ResponseEntity.created(location).build();
+
+    }
+
+    @DeleteMapping("/employees/{id}")
+    public void deleteEmployee(@PathVariable Integer id) {
+        employeeDao.deleteById(id);
+    }
+
+    @PutMapping("/employees/{id}")
+    public ResponseEntity<Object> updateEmployee(@RequestBody Employee employee, @PathVariable Integer id) {
+
+        Optional<Employee> studentOptional = employeeDao.findById(id);
+
+        if (!studentOptional.isPresent())
+            return ResponseEntity.notFound().build();
+
+        employee.setId(id);
+
+        employeeDao.save(employee);
+
+        return ResponseEntity.noContent().build();
+    }
+
+
 
 }

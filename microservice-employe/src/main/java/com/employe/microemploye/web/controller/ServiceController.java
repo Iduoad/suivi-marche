@@ -1,14 +1,15 @@
 package com.employe.microemploye.web.controller;
 
 import com.employe.microemploye.dao.ServiceDao;
+import com.employe.microemploye.model.Employee;
 import com.employe.microemploye.model.Service;
 import com.employe.microemploye.web.exceptions.ServiceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,5 +33,37 @@ public class ServiceController {
         if(service==null) throw new ServiceNotFoundException("There is no service with id = " + id);
 
         return service;
+    }
+
+
+    @PostMapping("/services")
+    public ResponseEntity<Object> createService(@RequestBody Service service) {
+        Service savedService = serviceDao.save(service);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(savedService.getId()).toUri();
+
+        return ResponseEntity.created(location).build();
+
+    }
+
+    @DeleteMapping("/services/{id}")
+    public void deleteService(@PathVariable Integer id) {
+        serviceDao.deleteById(id);
+    }
+
+    @PutMapping("/services/{id}")
+    public ResponseEntity<Object> updateService(@RequestBody Service service, @PathVariable Integer id) {
+
+        Optional<Service> studentOptional = serviceDao.findById(id);
+
+        if (!studentOptional.isPresent())
+            return ResponseEntity.notFound().build();
+
+        service.setId(id);
+
+        serviceDao.save(service);
+
+        return ResponseEntity.noContent().build();
     }
 }
