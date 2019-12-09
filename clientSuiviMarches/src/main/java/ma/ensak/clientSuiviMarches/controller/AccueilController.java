@@ -15,7 +15,7 @@ public class AccueilController {
 	
 	@GetMapping(value = "accueil")
 	public String accueil(Model model) {
-		model.addAttribute("employees", microSEP.getAllEmployees());
+		//model.addAttribute("employees", microSEP.getAllEmployees());
 		return "accueil/accueil";
 	}
 }
