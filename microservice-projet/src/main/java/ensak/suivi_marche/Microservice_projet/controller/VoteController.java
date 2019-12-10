@@ -51,7 +51,7 @@ public class VoteController {
         }
 
         return voteRepository.findById(voteId).map(comment -> {
-            comment.setState(voteRequest.getState());
+            comment.setStatus(voteRequest.getStatus());
             return voteRepository.save(comment);
         }).orElseThrow(() -> new ResourceNotFoundException("CommentId "+ voteId + " not Found"));
     }

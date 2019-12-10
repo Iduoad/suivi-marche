@@ -52,7 +52,7 @@ public class CommentController {
 
         return commentRepository.findById(commentId).map(comment -> {
             comment.setContent(commentRequest.getContent());
-            comment.setState(commentRequest.getState());
+            comment.setStatus(commentRequest.getStatus());
             return commentRepository.save(comment);
         }).orElseThrow(() -> new ResourceNotFoundException("CommentId "+ commentId + " not Found"));
     }
