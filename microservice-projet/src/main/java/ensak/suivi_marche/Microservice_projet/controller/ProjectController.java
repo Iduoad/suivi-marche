@@ -4,16 +4,11 @@ import ensak.suivi_marche.Microservice_projet.exception.ResourceNotFoundExceptio
 import ensak.suivi_marche.Microservice_projet.model.Project;
 import ensak.suivi_marche.Microservice_projet.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import ensak.suivi_marche.Microservice_projet.exception.ResourceNotFoundException;
-import ensak.suivi_marche.Microservice_projet.model.Project;
-import ensak.suivi_marche.Microservice_projet.repository.ProjectRepository;
-
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -23,8 +18,12 @@ public class ProjectController {
     private ProjectRepository projectRepository;
 
     @GetMapping("/projects")
-    public Page<Project> getAllProjects(Pageable pageable) {
-        return projectRepository.findAll(pageable);
+    public List<Project> getAllProjects(@RequestParam (value = "employee", defaultValue = "0") Long employeeId,
+                                             @RequestParam (value = "service", defaultValue = "0") Long serviceId) {
+        // find by employee and by service
+
+            return projectRepository.findAll();
+
     }
 
     @GetMapping("/projects/{project_id}")
@@ -42,12 +41,13 @@ public class ProjectController {
                                  @Valid @RequestBody Project projectRequest) {
         return projectRepository.findById(projectId).map(project -> {
             project.setObjective(projectRequest.getObjective());
+            project.setDescription(projectRequest.getDescription());
             project.setRequiredHardware(projectRequest.getRequiredHardware());
             project.setRequiredSoftware(projectRequest.getRequiredSoftware());
             project.setSoftwareLicences(projectRequest.getSoftwareLicences());
             project.setBudget(projectRequest.getBudget());
             project.setDuration(projectRequest.getDuration());
-            project.setState(projectRequest.getState());
+            project.setStatus(projectRequest.getStatus());
             return projectRepository.save(project);
         }).orElseThrow(()-> new ResourceNotFoundException("Project " + projectId + "Not found"));
     }

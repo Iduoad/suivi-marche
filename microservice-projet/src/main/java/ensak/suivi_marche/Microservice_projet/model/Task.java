@@ -1,11 +1,19 @@
 package ensak.suivi_marche.Microservice_projet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "tasks")
+@Getter @Setter
 public class Task {
 
     @Id
@@ -13,58 +21,38 @@ public class Task {
     private Long id;
 
     @NotNull
-    @Column(name = "final_date")
-    private Date finalDate;
+    @Column(name = "label")
+    private String label;
+
+    @NotNull
+    @Column(name = "description")
+    private String description;
+
+    @NotNull
+    @Column(name = "start_date")
+    private Date startDate;
+
+    @NotNull
+    @Column(name = "end_date")
+    private Date endDate;
 
     @NotNull
     @Column(name = "duration")
     private Long duration;
 
     @NotNull
-    @Column(name = "state")
-    private String state;
+    @Column(name = "status")
+    private String status;
 
-    @NotNull
-    @Column(name = "project_id")
-    private long projectId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "project_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Project project;
 
-    public Long getId() {
-        return id;
-    }
+    @OneToMany()
+    private List<Comment> comments;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getFinalDate() {
-        return finalDate;
-    }
-
-    public void setFinalDate(Date finalDate) {
-        this.finalDate = finalDate;
-    }
-
-    public Long getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Long duration) {
-        this.duration = duration;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public long getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(long projectId) {
-        this.projectId = projectId;
-    }
+    @OneToMany()
+    private List<Vote> votes;
 }
