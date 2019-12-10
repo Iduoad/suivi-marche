@@ -6,13 +6,13 @@ import ensak.suivi_marche.Microservice_projet.repository.ProjectRepository;
 import ensak.suivi_marche.Microservice_projet.repository.TaskRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Optional;
+import java.util.List;
+
 
 
 @RestController
@@ -25,10 +25,9 @@ public class TaskController {
     private TaskRepository taskRepository;
 
     @GetMapping("/tasks")
-    public Page<Task> getAllTasks(@RequestParam(required = true, value = "project") Long projectId ,
-                                  Pageable pageable) {
+    public List<Task> getAllTasks(@RequestParam(required = true, value = "project") Long projectId) {
         return projectRepository.findById(projectId).map(project -> {
-            return taskRepository.findByProjectId(projectId, pageable);
+            return taskRepository.findByProjectId(projectId);
         }).orElseThrow(() -> new ResourceNotFoundException("Project " + projectId + " Not Found" ));
     }
 

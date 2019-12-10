@@ -6,8 +6,6 @@ import ensak.suivi_marche.Microservice_projet.exception.ResourceNotFoundExceptio
 import ensak.suivi_marche.Microservice_projet.repository.CommentRepository;
 import ensak.suivi_marche.Microservice_projet.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,10 +15,10 @@ import ensak.suivi_marche.Microservice_projet.repository.CommentRepository;
 import ensak.suivi_marche.Microservice_projet.repository.TaskRepository;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class CommentController {
-
     @Autowired
     private CommentRepository commentRepository;
 
@@ -28,9 +26,8 @@ public class CommentController {
     private TaskRepository taskRepository;
 
     @GetMapping("/task/{task_id}/comments")
-    public Page<Comment> getAllCommentsByTaskId(@PathVariable (value = "task_id") Long taskId,
-                                                     Pageable pageable) {
-        return commentRepository.findByTaskId(taskId, pageable);
+    public List<Comment> getAllCommentsByTaskId(@PathVariable (value = "task_id") Long taskId) {
+        return commentRepository.findByTaskId(taskId);
     }
 
     @PostMapping("/tasks/{task_id}/comments")

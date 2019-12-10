@@ -6,8 +6,6 @@ import ensak.suivi_marche.Microservice_projet.model.Vote;
 import ensak.suivi_marche.Microservice_projet.repository.TaskRepository;
 import ensak.suivi_marche.Microservice_projet.repository.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +16,7 @@ import ensak.suivi_marche.Microservice_projet.repository.TaskRepository;
 import ensak.suivi_marche.Microservice_projet.repository.VoteRepository;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class VoteController {
@@ -29,9 +28,8 @@ public class VoteController {
     private TaskRepository taskRepository;
 
     @GetMapping("/tasks/{task_id}/votes")
-    public Page<Vote> getAllVotesByTaskId(@PathVariable (value = "task_id") Long taskId,
-                                                Pageable pageable) {
-        return voteRepository.findByTaskId(taskId, pageable);
+    public List<Vote> getAllVotesByTaskId(@PathVariable (value = "task_id") Long taskId) {
+        return voteRepository.findByTaskId(taskId);
     }
 
     @PostMapping("/tasks/{task_id}/votes")

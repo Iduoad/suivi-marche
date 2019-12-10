@@ -4,12 +4,11 @@ import ensak.suivi_marche.Microservice_projet.exception.ResourceNotFoundExceptio
 import ensak.suivi_marche.Microservice_projet.model.Project;
 import ensak.suivi_marche.Microservice_projet.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -19,12 +18,11 @@ public class ProjectController {
     private ProjectRepository projectRepository;
 
     @GetMapping("/projects")
-    public Page<Project> getAllProjects(@RequestParam (value = "employee", defaultValue = "0") Long employeeId,
-                                        @RequestParam (value = "service", defaultValue = "0") Long serviceId,
-                                        Pageable pageable) {
+    public List<Project> getAllProjects(@RequestParam (value = "employee", defaultValue = "0") Long employeeId,
+                                             @RequestParam (value = "service", defaultValue = "0") Long serviceId) {
         // find by employee and by service
 
-            return projectRepository.findAll(pageable);
+            return projectRepository.findAll();
 
     }
 
