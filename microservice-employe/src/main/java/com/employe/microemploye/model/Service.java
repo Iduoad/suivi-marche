@@ -8,7 +8,7 @@ public class Service {
 
     @Id
     @GeneratedValue
-    private int id ;
+    private Long id ;
 
     private String label ;
     private String description ;
@@ -17,11 +17,11 @@ public class Service {
     public Service() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

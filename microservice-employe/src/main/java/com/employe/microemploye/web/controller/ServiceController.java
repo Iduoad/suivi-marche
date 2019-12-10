@@ -26,7 +26,7 @@ public class ServiceController {
 
 
     @RequestMapping(value = "/services/{id}", method = RequestMethod.GET)
-    public Optional<Service> getServiceById(@PathVariable int id) throws ServiceNotFoundException {
+    public Optional<Service> getServiceById(@PathVariable Long id) throws ServiceNotFoundException {
 
         Optional<Service> service = serviceDao.findById(id);
 
@@ -48,12 +48,12 @@ public class ServiceController {
     }
 
     @DeleteMapping("/services/{id}")
-    public void deleteService(@PathVariable Integer id) {
+    public void deleteService(@PathVariable Long id) {
         serviceDao.deleteById(id);
     }
 
     @PutMapping("/services/{id}")
-    public ResponseEntity<Object> updateService(@RequestBody Service service, @PathVariable Integer id) {
+    public ResponseEntity<Object> updateService(@RequestBody Service service, @PathVariable Long id) {
 
         Optional<Service> studentOptional = serviceDao.findById(id);
 

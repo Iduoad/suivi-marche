@@ -14,7 +14,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 public class Service {
 
-    int id ;
+    Long id ;
     String label ;
     String description ;
 
