@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface EmployeeDao extends JpaRepository<Employee, Integer> {
+public interface EmployeeDao extends JpaRepository<Employee, Long> {
 
-   public List<Employee> getEmployeesByService_id(int service_id);
+   public List<Employee> getEmployeesByService_id(Long service_id);
 
    public List<Employee> getAllEmployeesByJob(String job_title);
 

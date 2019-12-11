@@ -9,7 +9,7 @@
 	th:href="@{/assets/img/apple-icon.png}">
 <link rel="icon" type="image/png" th:href="@{/assets/img/favicon.png}">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Material Dashboard by Creative Tim</title>
+<title>Gestion De Projet</title>
 <meta
 	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
 	name='viewport' />
@@ -46,82 +46,77 @@
 
 			<!-- content -->
 
-
-
 			<div class="content">
 				<div class="container-fluid">
-					<!-- buttons ajouts -->
-					<div class="card">
-						<div class="col-md-12 ">
-							<div class="places-buttons">
-								<div class="row">
-									<div class="col-md-6 ml-auto mr-auto text-center">
-										<h4 class="card-title"></h4>
-									</div>
-								</div>
-								<div class="row " style="margin-top: 22px;">
-									<div class="col-lg-8 col-md-10 ml-auto mr-auto ">
-										<div class="row">
-											<div class="col-md-6 ">
-												<a th:href="@{addOrUpdateServiceRedirect}"><button
-														class="btn btn-primary btn-block">Ajouter un
-														service</button></a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<!-- /buttons ajouts -->
-
-					<!-- table -->
 
 					<div class="row">
 						<div class="col-md-12">
 							<div class="card">
 								<div class="card-header card-header-primary">
-									<h4 class="card-title ">Services</h4>
-									<p class="card-category">Détails des services</p>
+									<h4 class="card-title">Employée</h4>
+									<p class="card-category">Détails de l'employée</p>
 								</div>
 								<div class="card-body">
-									<div class="table-responsive">
-										<table class="table">
-											<thead class=" text-primary">
-												<th>Libellé</th>
-												<th>Description</th>
-												<th>Actions</th>
-											</thead>
-											<tbody>
-												<tr:block th:each="service : ${services}">
-													<td th:text="${service.label}"></td>
-													<td th:text="${service.description}"></td>
-													<td class="td-actions text-left"><a
-														th:href="@{addOrUpdateServiceRedirect(idd=${service.id})}">
-															<button type="button" rel="tooltip"
-																title="Modifier le service"
-																class="btn btn-primary btn-link btn-sm">
-																<i class="material-icons">edit</i>
-															</button>
-													</a> <a th:href="@{deleteService(idd=${service.id})}"
-														onclick="return confirm('Voulez-vous supprimer ce service?');">
-															<button type="button" rel="tooltip"
-																title="Supprimer le service"
-																class="btn btn-danger btn-link btn-sm">
-																<i class="material-icons">close</i>
-															</button>
-													</a></td>
-													</tr>
-											</tbody>
-										</table>
-									</div>
+									<form th:object="${employee}"
+										th:action="@{addOrUpdateEmployee}" method="post" novalidate>
+
+										<div>
+											<input th:field="*{id}" type="hidden" />
+										</div>
+
+										<div class="row">
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="bmd-label-floating">Nom</label> <input
+														th:field="*{nom}" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="bmd-label-floating">Prénom</label> <input
+														th:field="*{prenom}" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="bmd-label-floating">Email</label> <input
+														th:field="*{email}" type="email" class="form-control">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="bmd-label-floating">Profession</label> <input
+														th:field="*{job}" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="bmd-label-floating">Service</label> <select
+														class="form-control form-control-sm" id="service" required="required"
+														th:field="*{service}">
+
+														<option th:each="service : ${services}"
+															th:value="${service.id}"
+															th:text="${service.label}" />
+													</select>
+												</div>
+											</div>
+										</div>
+
+
+										<button type="submit" class="btn btn-primary pull-right">Valider</button>
+										<div class="clearfix"></div>
+									</form>
 								</div>
 							</div>
 						</div>
 
 					</div>
-					<!-- /table -->
+
+
+
 				</div>
 			</div>
 

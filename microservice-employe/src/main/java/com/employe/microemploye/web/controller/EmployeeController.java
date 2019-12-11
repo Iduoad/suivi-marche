@@ -28,7 +28,7 @@ public class EmployeeController {
 
 
     @RequestMapping(value = "/employees/{id}", method = RequestMethod.GET)
-    public Optional<Employee> getEmployeeById(@PathVariable int id) throws EmployeeNotFoundException {
+    public Optional<Employee> getEmployeeById(@PathVariable Long id) throws EmployeeNotFoundException {
 
         Optional<Employee> employee = employeeDao.findById(id);
 
@@ -38,7 +38,7 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/employees/service/{service_id}", method = RequestMethod.GET)
-    public List<Employee> getEmployeesByService(@PathVariable int service_id) throws EmployeeNotFoundException {
+    public List<Employee> getEmployeesByService(@PathVariable long service_id) throws EmployeeNotFoundException {
         List<Employee> employees ;
         employees = employeeDao.getEmployeesByService_id(service_id);
 
@@ -71,12 +71,12 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/employees/{id}")
-    public void deleteEmployee(@PathVariable Integer id) {
+    public void deleteEmployee(@PathVariable Long id) {
         employeeDao.deleteById(id);
     }
 
     @PutMapping("/employees/{id}")
-    public ResponseEntity<Object> updateEmployee(@RequestBody Employee employee, @PathVariable Integer id) {
+    public ResponseEntity<Object> updateEmployee(@RequestBody Employee employee, @PathVariable Long id) {
 
         Optional<Employee> studentOptional = employeeDao.findById(id);
 

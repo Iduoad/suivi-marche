@@ -9,7 +9,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "projects")
-@Getter @Setter
+@Getter 
+@Setter
 public class Project {
 
     @Id
@@ -31,14 +32,14 @@ public class Project {
     @Column(name = "software_licences")
     private String softwareLicences;
 
-    @NotNull
+  
     @Column(name = "duration")
     private Long duration;
 
     @Column(name = "budget")
     private Double budget;
 
-    @NotNull
+    
     @Column(name = "status")
     private String status;
 

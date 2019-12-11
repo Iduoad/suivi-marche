@@ -53,63 +53,35 @@
 						<div class="col-md-12">
 							<div class="card">
 								<div class="card-header card-header-primary">
-									<h4 class="card-title">Projet</h4>
-									<p class="card-category">Détails du projet</p>
+									<h4 class="card-title">Service</h4>
+									<p class="card-category">Détails du service</p>
 								</div>
 								<div class="card-body">
-									<form>
-										<div class="row">
-											<div class="col-md-12">
-												<div class="form-group">
-													<label class="bmd-label-floating">Objectif</label> <input
-														type="text" class="form-control">
-												</div>
-											</div>
+									<form th:object="${service}" th:action="@{addOrUpdateService}"
+										method="post" novalidate>
+
+										<div>
+											<input th:field="*{id}" type="hidden" />
 										</div>
+
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="bmd-label-floating">Matériels requis</label>
-													<input type="text" class="form-control">
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-group">
-													<label class="bmd-label-floating">Logiciels requis</label>
-													<input type="text" class="form-control">
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-6">
-												<div class="form-group">
-													<label class="bmd-label-floating">Licences de
-														logiciel</label> <input type="text" class="form-control">
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-group">
-													<label class="bmd-label-floating">Estimation de
-														budget (DH)</label> <input type="number" class="form-control">
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-4">
-												<div class="form-group">
-													<label class="bmd-label-floating">Durée (Jours)</label> <input
-														type="number" class="form-control">
+													<label class="bmd-label-floating">Libellé</label> <input
+														th:field="*{label}" type="text" class="form-control">
 												</div>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-md-12">
 												<div class="form-group">
-													<label>Description</label>
-													<textarea class="form-control" rows="5"></textarea>
+													<label class="bmd-label-floating">Description</label> <input
+														th:field="*{description}" type="text" class="form-control">
 												</div>
 											</div>
 										</div>
+
+
 										<button type="submit" class="btn btn-primary pull-right">Valider</button>
 										<div class="clearfix"></div>
 									</form>

@@ -1,5 +1,8 @@
 package ma.ensak.clientSuiviMarches.beans;
 
+import java.util.List;
+
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,13 +20,15 @@ public class Project {
    
     Long id;
     String objective;
+    String description;
     String requiredHardware;
     String requiredSoftware;
     String softwareLicences;
     Long duration;
     Double budget;
-    String state;
+    String status;
     Long employeeId;
     Long serviceId;
+    List<Task> tasks;
 
 }

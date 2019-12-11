@@ -13,6 +13,7 @@ import ma.ensak.clientSuiviMarches.beans.Project;
 import ma.ensak.clientSuiviMarches.beans.Task;
 import ma.ensak.clientSuiviMarches.beans.Vote;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -43,6 +44,9 @@ public interface MicroserviceProjetProxy {
 	
 	//projet
 	
+	    @GetMapping("/projects")
+	    public List<Project> getAllProjects() ;
+
 	    @GetMapping("/projects/{project_id}")
 	    public Optional<Project> getProject(@PathVariable (value = "project_id") Long projectId);
 
@@ -51,7 +55,7 @@ public interface MicroserviceProjetProxy {
 
 	    @PutMapping("/projects/{project_id}")
 	    public Project updateProject(@PathVariable (value = "project_id") Long projectId,
-	                                 @Valid @RequestBody Project projectRequest) ;
+	                                 @Valid @RequestBody Project projectRequest);
 
 	    @DeleteMapping("/projects/{project_id}")
 	    public ResponseEntity<?> deleteProject(@PathVariable (value = "project_id") Long projectId) ;

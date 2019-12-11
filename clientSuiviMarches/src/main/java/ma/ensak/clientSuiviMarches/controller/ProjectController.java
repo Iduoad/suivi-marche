@@ -26,9 +26,20 @@ public class ProjectController {
 			Project project) {
 
 		model.addAttribute("message", "".equals(message) ? "" : message);
+		model.addAttribute("Sectiontitle", "Projets");
 		model.addAttribute("project", "".equals(idd) ? project == null ? new Project() : project
 				: microSProjetProxy.getProject(Long.parseLong(idd)));
 		return "project/addOrUpdateProject";
+	}
+	
+	@RequestMapping(value = "getDetailsProject")
+	public String getDetailsProject(HttpServletRequest request, Model model,
+			@RequestParam(defaultValue = "") String message, @RequestParam(defaultValue = "") String idd) {
+
+		model.addAttribute("message", "".equals(message) ? "" : message);
+		model.addAttribute("Sectiontitle", "Projets");
+		model.addAttribute("project", microSProjetProxy.getProject(Long.parseLong(idd)));
+		return "project/getDetailsProject";
 	}
 
 	@RequestMapping(value = "addOrUpdateProject", method = RequestMethod.POST)
@@ -58,13 +69,14 @@ public class ProjectController {
 		return new ModelAndView("redirect:/getProjects", "message", "Suppréssion réussie");
 	}
 
-	/*@RequestMapping(value = "getProjects")
+	@RequestMapping(value = "getProjects")
 	public String getProjects(HttpServletRequest request, Model model,
 			@RequestParam(defaultValue = "") String message) {
 		
+		model.addAttribute("Sectiontitle", "Projets");
 		model.addAttribute("message", "".equals(message) ? "" : message);
-		model.addAttribute("projects", microSProjetProxy.pro);
+		model.addAttribute("projects", microSProjetProxy.getAllProjects());
 		return "project/getProjects";
-	}*/
+	}
 
 }

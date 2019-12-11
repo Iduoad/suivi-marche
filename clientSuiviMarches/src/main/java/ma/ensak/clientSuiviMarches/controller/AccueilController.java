@@ -16,10 +16,10 @@ public class AccueilController {
 	@GetMapping(value = "accueil")
 	public String accueil(Model model) {
 		//model.addAttribute("employees", microSEP.getAllEmployees());
-		//return "accueil/accueil";
+		return "accueil/accueil";
 		//return "project/addOrUpdateProject";
 		//return "task/addOrUpdateTask";
 		//return "project/getProjects";
-		return "project/getDetailsProject";
+		//return "project/getDetailsProject";
 	}
 }

@@ -15,11 +15,18 @@ import lombok.experimental.FieldDefaults;
 public class Employee {
 
     
-    int id ;
-    String name ;
+    Long id ;
+    String nom ;
+    String prenom ;
     String email ;
     String job ; // fonctionnaire, chef, directeur
     Service service ;
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", job=" + job
+				+ ", service=" + service + "]";
+	}
+    
 
    
 }

@@ -63,9 +63,9 @@
 									<div class="col-lg-8 col-md-10 ml-auto mr-auto ">
 										<div class="row">
 											<div class="col-md-6 ">
-												<a th:href="@{addOrUpdateServiceRedirect}"><button
+												<a th:href="@{addOrUpdateEmployeeRedirect}"><button
 														class="btn btn-primary btn-block">Ajouter un
-														service</button></a>
+														employée</button></a>
 											</div>
 										</div>
 									</div>
@@ -82,32 +82,36 @@
 						<div class="col-md-12">
 							<div class="card">
 								<div class="card-header card-header-primary">
-									<h4 class="card-title ">Services</h4>
-									<p class="card-category">Détails des services</p>
+									<h4 class="card-title ">Employées</h4>
+									<p class="card-category">Détails des employés</p>
 								</div>
 								<div class="card-body">
 									<div class="table-responsive">
 										<table class="table">
 											<thead class=" text-primary">
-												<th>Libellé</th>
-												<th>Description</th>
+												<th>Nom</th>
+												<th>Prénom</th>
+												<th>Email</th>
+												<th>Profession</th>
 												<th>Actions</th>
 											</thead>
 											<tbody>
-												<tr:block th:each="service : ${services}">
-													<td th:text="${service.label}"></td>
-													<td th:text="${service.description}"></td>
+												<tr:block th:each="employee : ${employees}">
+													<td th:text="${employee.nom}"></td>
+													<td th:text="${employee.prenom}"></td>
+													<td th:text="${employee.email}"></td>
+													<td th:text="${employee.job}"></td>
 													<td class="td-actions text-left"><a
-														th:href="@{addOrUpdateServiceRedirect(idd=${service.id})}">
+														th:href="@{addOrUpdateEmployeeRedirect(idd=${employee.id})}">
 															<button type="button" rel="tooltip"
-																title="Modifier le service"
+																title="Modifier l'employée"
 																class="btn btn-primary btn-link btn-sm">
 																<i class="material-icons">edit</i>
 															</button>
-													</a> <a th:href="@{deleteService(idd=${service.id})}"
-														onclick="return confirm('Voulez-vous supprimer ce service?');">
+													</a> <a th:href="@{deleteEmployee(idd=${employee.id})}"
+														onclick="return confirm('Voulez-vous supprimer cet employée?');">
 															<button type="button" rel="tooltip"
-																title="Supprimer le service"
+																title="Supprimer l'employée"
 																class="btn btn-danger btn-link btn-sm">
 																<i class="material-icons">close</i>
 															</button>

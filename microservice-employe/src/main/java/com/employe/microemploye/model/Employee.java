@@ -1,18 +1,17 @@
 package com.employe.microemploye.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames= {"email"}))
 public class Employee {
 
     @Id
     @GeneratedValue
-    private int id ;
+    private Long id ;
 
-    private String name ;
+    private String nom ;
+    private String prenom ;
     private String email ;
     private String job ; // fonctionnaire, chef, directeur
 
@@ -24,23 +23,33 @@ public class Employee {
     public Employee() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
+  
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getNom() {
+		return nom;
+	}
 
-    public String getEmail() {
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getEmail() {
         return email;
     }
 
@@ -64,14 +73,11 @@ public class Employee {
         this.service = service;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", job='" + job + '\'' +
-                ", service=" + service +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", job=" + job
+				+ ", service=" + service + "]";
+	}
+
+   
 }

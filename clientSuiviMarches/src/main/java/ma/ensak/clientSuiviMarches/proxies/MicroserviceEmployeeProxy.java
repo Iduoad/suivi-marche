@@ -20,17 +20,29 @@ public interface MicroserviceEmployeeProxy {
 
 	//Employee
 	
-	@RequestMapping(value = "/employees", method = RequestMethod.GET)
-	public List<Employee> getAllEmployees();
+    @RequestMapping(value="/employees", method= RequestMethod.GET)
+    public List<Employee> getAllEmployees();
 
-	@RequestMapping(value = "/employees/{id}", method = RequestMethod.GET)
-	public Optional<Employee> getEmployeeById(@PathVariable int id);
 
-	@RequestMapping(value = "/employees/service/{service_id}", method = RequestMethod.GET)
-	public List<Employee> getEmployeesByService(@PathVariable int service_id);
+    @RequestMapping(value = "/employees/{id}", method = RequestMethod.GET)
+    public Optional<Employee> getEmployeeById(@PathVariable Long id);
 
-	@RequestMapping(value = "/employees/job/{job_title}", method = RequestMethod.GET)
-	public List<Employee> getEmployeesByJob(@PathVariable String job_title);
+    @RequestMapping(value = "/employees/service/{service_id}", method = RequestMethod.GET)
+    public List<Employee> getEmployeesByService(@PathVariable long service_id) ;
+
+
+    @RequestMapping(value = "/employees/job/{job_title}", method = RequestMethod.GET)
+    public List<Employee> getEmployeesByJob(@PathVariable String job_title) ;
+
+
+    @PostMapping("/employees")
+    public ResponseEntity<Object> createEmployee(@RequestBody Employee employee);
+
+    @DeleteMapping("/employees/{id}")
+    public void deleteEmployee(@PathVariable Long id) ;
+
+    @PutMapping("/employees/{id}")
+    public ResponseEntity<Object> updateEmployee(@RequestBody Employee employee, @PathVariable Long id) ;
 	
 	//Service
 	

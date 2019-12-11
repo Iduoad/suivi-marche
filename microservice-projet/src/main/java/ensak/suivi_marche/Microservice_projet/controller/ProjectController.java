@@ -16,11 +16,10 @@ public class ProjectController {
 
     @Autowired
     private ProjectRepository projectRepository;
+    
 
     @GetMapping("/projects")
-    public List<Project> getAllProjects(@RequestParam (value = "employee", defaultValue = "0") Long employeeId,
-                                             @RequestParam (value = "service", defaultValue = "0") Long serviceId) {
-        // find by employee and by service
+    public List<Project> getAllProjects() {
 
             return projectRepository.findAll();
 
@@ -32,7 +31,7 @@ public class ProjectController {
     }
 
     @PostMapping("/projects")
-    public Project createProject(@Valid @RequestBody Project project) {
+    public Project createProject( @RequestBody Project project) {
         return projectRepository.save(project);
     }
 

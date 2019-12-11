@@ -57,12 +57,19 @@
 									<p class="card-category">Détails du projet</p>
 								</div>
 								<div class="card-body">
-									<form>
+									<form th:object="${project}" th:action="@{addOrUpdateProject}"
+										method="post" novalidate >
+										
+										<div>
+											<input th:field="*{id}" type="hidden" />
+										</div>
+										
+										
 										<div class="row">
 											<div class="col-md-12">
 												<div class="form-group">
 													<label class="bmd-label-floating">Objectif</label> <input
-														type="text" class="form-control">
+														th:field="*{objective}" type="text" class="form-control">
 												</div>
 											</div>
 										</div>
@@ -70,13 +77,13 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="bmd-label-floating">Matériels requis</label>
-													<input type="text" class="form-control">
+													<input th:field="*{requiredHardware}" type="text" class="form-control">
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="bmd-label-floating">Logiciels requis</label>
-													<input type="text" class="form-control">
+													<input th:field="*{requiredSoftware}" type="text" class="form-control">
 												</div>
 											</div>
 										</div>
@@ -84,13 +91,13 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="bmd-label-floating">Licences de
-														logiciel</label> <input type="text" class="form-control">
+														logiciel</label> <input th:field="*{softwareLicences}" type="text" class="form-control">
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="bmd-label-floating">Estimation de
-														budget (DH)</label> <input type="number" class="form-control">
+														budget (DH)</label> <input th:field="*{budget}" type="number" class="form-control">
 												</div>
 											</div>
 										</div>
@@ -98,7 +105,7 @@
 											<div class="col-md-4">
 												<div class="form-group">
 													<label class="bmd-label-floating">Durée (Jours)</label> <input
-														type="number" class="form-control">
+														th:field="*{duration}" type="number" class="form-control">
 												</div>
 											</div>
 										</div>
@@ -106,7 +113,7 @@
 											<div class="col-md-12">
 												<div class="form-group">
 													<label>Description</label>
-													<textarea class="form-control" rows="5"></textarea>
+													<textarea th:field="*{description}" class="form-control" rows="5"></textarea>
 												</div>
 											</div>
 										</div>

@@ -29,6 +29,7 @@ public class ServiceController {
 	{
 		
 		model.addAttribute("message", "".equals(message) ? "" : message );
+		model.addAttribute("Sectiontitle", "Services");
 		model.addAttribute("service", "".equals(idd) ? service == null ? new Service() : service : microSEProxy.getServiceById(Long.parseLong(idd)));
 		return "service/addOrUpdateService";
 	}
@@ -46,7 +47,7 @@ public class ServiceController {
 		}else
 		{
 			microSEProxy.updateService(service, service.getId());
-			modelAndView = new ModelAndView("redirect:/getParagraphes" , "message" ,"Paragraphe modifié avec succès"  );
+			modelAndView = new ModelAndView("redirect:/getServices" , "message" ,"Paragraphe modifié avec succès"  );
 		}
 	
 		return modelAndView;
@@ -66,6 +67,7 @@ public class ServiceController {
 		
 		model.addAttribute("message", "".equals(message) ? "" : message );
 		model.addAttribute("services", microSEProxy.getAllServices());
+		model.addAttribute("Sectiontitle", "Services");
 		return "service/getServices";
 	}
 }

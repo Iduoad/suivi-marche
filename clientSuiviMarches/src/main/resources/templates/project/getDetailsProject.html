@@ -56,10 +56,10 @@
 							<div class="places-buttons">
 								<div class="row">
 									<div class="col-md-6 ml-auto mr-auto text-center">
-										<h4 class="card-title">Gestion de projet</h4>
+										<h4 class="card-title"></h4>
 									</div>
 								</div>
-								<div class="row">
+								<div class="row" style="margin-top: 22px;">
 									<div class="col-lg-8 col-md-10 ml-auto mr-auto">
 										<div class="row">
 											<div class="col-md-6">
@@ -152,6 +152,14 @@
 
 					</div>
 					<!-- /table -->
+					
+					<!-- taches -->
+					
+					
+					<div th:insert="pageComponent/tasksByProject :: tasksByProject"></div>
+					
+					
+					<!-- taches -->
 				</div>
 			</div>
 

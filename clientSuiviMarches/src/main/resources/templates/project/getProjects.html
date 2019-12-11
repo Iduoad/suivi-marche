@@ -56,21 +56,20 @@
 							<div class="places-buttons">
 								<div class="row">
 									<div class="col-md-6 ml-auto mr-auto text-center">
-										<h4 class="card-title">L'ajout de nouveaux projets</h4>
+										<h4 class="card-title"></h4>
 									</div>
 								</div>
-								<div class="row">
+								<div class="row" style="margin-top: 22px;">
 									<div class="col-lg-8 col-md-10 ml-auto mr-auto">
 										<div class="row">
 											<div class="col-md-6">
-												<button class="btn btn-primary btn-block"
-													onclick="md.showNotification('top','center')">Ajouter
-													un projet</button>
+												<a th:href="@{addOrUpdateProjectRedirect}"><button
+														class="btn btn-primary btn-block">Ajouter un Projet</button></a>
 											</div>
 											<div class="col-md-6">
-												<button class="btn btn-primary btn-block"
-													onclick="md.showNotification('top','right')">Ajouter
-													une tâche</button>
+												<a th:href="@{addOrUpdateTaskRedirect}"><button
+														class="btn btn-primary btn-block">Ajouter une
+														tâche</button></a>
 											</div>
 										</div>
 									</div>
@@ -101,32 +100,42 @@
 												<th>Licences</th>
 												<th>Durée</th>
 												<th>Budget</th>
-												<th>Créateur</th>
-												<th>Status</th>
-												<th>Tâches</th>
+												<th>Description</th>
+												<th>Détails</th>
 												<th>Actions</th>
 											</thead>
 											<tbody>
-												<tr>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td class="text-primary"></td>
-													<td class="text-primary"></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td class="td-actions text-right">
-														<button type="button" rel="tooltip" title="Modifier le projet"
-															class="btn btn-primary btn-link btn-sm">
-															<i class="material-icons">edit</i>
-														</button>
-														<button type="button" rel="tooltip" title="Supprimer le projet"
-															class="btn btn-danger btn-link btn-sm">
-															<i class="material-icons">close</i>
-														</button>
-													</td>
+												<tr:block th:each="project : ${projects}">
+													<td th:text="${project.objective}"></td>
+													<td th:text="${project.requiredHardware}"></td>
+													<td th:text="${project.requiredSoftware}"></td>
+													<td th:text="${project.softwareLicences}"></td>
+													<td th:text="${project.duration}" class="text-primary"></td>
+													<td th:text="${project.budget}" class="text-primary"></td>
+													<td th:text="${project.description}"></td>
+													<td class="td-actions text-left"><a
+														th:href="@{getDetailsProject(idd=${project.id})}">
+															<button type="button" rel="tooltip"
+																title="Voir les détails"
+																class="btn btn-primary btn-link btn-sm">
+																<i class="material-icons">details</i>
+															</button>
+													</a></td>
+													<td class="td-actions text-left"><a
+														th:href="@{addOrUpdateProjectRedirect(idd=${project.id})}">
+															<button type="button" rel="tooltip"
+																title="Modifier le projet"
+																class="btn btn-primary btn-link btn-sm">
+																<i class="material-icons">edit</i>
+															</button>
+													</a> <a th:href="@{deleteProject(idd=${project.id})}"
+														onclick="return confirm('Voulez-vous supprimer ce projet?');">
+															<button type="button" rel="tooltip"
+																title="Supprimer le projet"
+																class="btn btn-danger btn-link btn-sm">
+																<i class="material-icons">close</i>
+															</button>
+													</a></td>
 												</tr>
 
 											</tbody>
