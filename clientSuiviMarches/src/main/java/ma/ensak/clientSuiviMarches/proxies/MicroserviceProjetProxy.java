@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
 import ma.ensak.clientSuiviMarches.beans.Comment;
 import ma.ensak.clientSuiviMarches.beans.Project;
 import ma.ensak.clientSuiviMarches.beans.Task;
@@ -62,17 +65,26 @@ public interface MicroserviceProjetProxy {
 	    
 	//Tasks
 	    
-	   /* @GetMapping("/tasks")
-	    public Page<Task> getAlltasks(Pageable pageable);*/
+	    @GetMapping("/tasks")
+	    public List<Task> getAllTasks();
 
+	    @GetMapping("/tasks/{task_id}")
+	    public Optional<Task> getTask(@PathVariable (value = "task_id") Long taskId) ;
+	    
+	    @GetMapping("/projects/{project_id}/tasks")
+	    public List<Task> getTasksByProjectId(@PathVariable (value = "project_id") Long projectId);
+	    
+	    @GetMapping("/projects/{project_id}/tasks/{task_id}")
+	    public Task getTasksByIdAndProjectId(@PathVariable (value = "task_id") Long taskId,@PathVariable (value = "project_id") Long projectId);
+	    
 	    @PostMapping("/tasks")
 	    public Task createTask(@Valid @RequestBody Task task) ;
 
 	    @PutMapping("/tasks/{task_id}")
-	    public Task updateTask(@PathVariable (value = "task_id") Long taskId, @Valid @RequestBody Task taskRequest) ;
+	    public Task updateTask(@PathVariable (value = "task_id") Long taskId, @Valid @RequestBody Task taskRequest);
 
 	    @DeleteMapping("/tasks/{task_id}")
-	    public ResponseEntity<?> deleteTask(@PathVariable (value = "task_id") Long taskId) ;
+	    public ResponseEntity<?> deleteTask(@PathVariable (value = "task_id") Long taskId);
 	    
 	//Vote
 	    

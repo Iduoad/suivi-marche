@@ -29,7 +29,8 @@
 					th:href="@{getEmployees}"> <i class="material-icons">person</i>
 						<p>Employees</p>
 				</a></li>
-					<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getProjects' || #httpServletRequest.getRequestURI() == '/addOrUpdateProjectRedirect' || #httpServletRequest.getRequestURI() == '/getDetailsProject'?'active':''}"><a class="nav-link"
+					<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getProjects' || #httpServletRequest.getRequestURI() == '/addOrUpdateProjectRedirect' || #httpServletRequest.getRequestURI() == '/getDetailsProject' ||
+					#httpServletRequest.getRequestURI() == '/addOrUpdateTaskRedirect' || #httpServletRequest.getRequestURI() == '/getTasks'?'active':''}"><a class="nav-link"
 					th:href="@{getProjects}"> <i class="material-icons">person</i>
 						<p>Projets</p>
 				</a></li>

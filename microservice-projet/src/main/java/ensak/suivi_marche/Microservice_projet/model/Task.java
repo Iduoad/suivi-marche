@@ -1,13 +1,11 @@
 package ensak.suivi_marche.Microservice_projet.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -20,34 +18,31 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
     @Column(name = "label")
     private String label;
 
-    @NotNull
     @Column(name = "description")
     private String description;
 
-    @NotNull
+
     @Column(name = "start_date")
     private Date startDate;
 
-    @NotNull
+    
     @Column(name = "end_date")
     private Date endDate;
 
-    @NotNull
+    
     @Column(name = "duration")
     private Long duration;
 
-    @NotNull
-    @Column(name = "status")
+    
+    //@Column(name = "status",columnDefinition = "varchar(255) default 'A'")
     private String status;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "project_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private Project project;
 
     @OneToMany()
@@ -55,4 +50,9 @@ public class Task {
 
     @OneToMany()
     private List<Vote> votes;
+    
+    @PrePersist
+    void preInsert() {
+       if ( this.getStatus() == null ) { this.setStatus("A");; }
+    }
 }

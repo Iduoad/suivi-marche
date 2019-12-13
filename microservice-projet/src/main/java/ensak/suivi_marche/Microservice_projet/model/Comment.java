@@ -19,19 +19,16 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
     @Column(name = "created_at")
     private Date createdAt;
 
-    @NotNull
+
     @Column(name = "content")
     private String content;
 
-    @NotNull
     @Column(name = "employee_id")
     private Long employeeId;
 
-    @NotNull
     @Column(name = "status")
     private String status;
 

@@ -57,20 +57,30 @@
 									<p class="card-category">Détails de tâche</p>
 								</div>
 								<div class="card-body">
-									<form>
+									<form th:object="${task}" th:action="@{addOrUpdateTask}"
+										method="post" novalidate>
+
+										<div>
+											<input th:field="*{id}" type="hidden" />
+										</div>
+										
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="bmd-label-floating">Projet</label> <select
-														class="form-control form-control-sm">
-														<option value="-1"></option>
+														class="form-control form-control-sm" id="service" required="required"
+														th:field="*{project}">
+
+														<option th:each="project : ${projects}"
+															th:value="${project.id}"
+															th:text="${project.objective}" />
 													</select>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="bmd-label-floating">Libellé</label> <input
-														type="text" class="form-control">
+														th:field="*{label}" type="text" class="form-control">
 												</div>
 											</div>
 										</div>
@@ -78,13 +88,13 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="bmd-label-floating">Date de début</label> <input
-														type="date" class="form-control">
+														th:field="*{startDate}" type="date" class="form-control">
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="bmd-label-floating">Date de fin</label> <input
-														type="date" class="form-control">
+														th:field="*{endDate}" type="date" class="form-control">
 												</div>
 											</div>
 
@@ -93,7 +103,7 @@
 											<div class="col-md-12">
 												<div class="form-group">
 													<label>Description</label>
-													<textarea class="form-control" rows="5"></textarea>
+													<textarea th:field="*{description}" class="form-control" rows="5"></textarea>
 												</div>
 											</div>
 										</div>

@@ -1,9 +1,9 @@
 <!-- taches by projet -->
 <div th:fragment="tasksByProject">
-	<div class="row">
+	<div class="row" >
 		<div class="col-lg-4 col-md-12">
-			<div class="card">
-				<div class="card-header card-header-tabs card-header-primary">
+			<div class="card" th:each="task : ${tasks}">
+				<div class="card-header card-header-tabs " th:classappend="${#strings.equals(task.status,'A')} ? card-header-danger :(${#strings.equals(task.status,'C')} ? card-header-warning : card-header-success)">
 					<div class="nav-tabs-navigation">
 						<div class="nav-tabs-wrapper">
 							<span class="nav-tabs-title">Tache :</span>
@@ -22,7 +22,7 @@
 					<div class="tab-content">
 						<div class="tab-pane active">
 							<table class="table">
-								<tbody>
+								<tbody id="tbody">
 									<tr>
 
 										<td>Sign contract for "What are conference organizers
@@ -52,7 +52,8 @@
 
 										<td class="text-center"><a href="#pablo"
 											class="btn btn-primary btn-round">Commenter</a> <a
-											href="#pablo" class="btn btn-primary btn-round">Voter</a></td>
+											href="#pablo" class="btn btn-primary btn-round">Voter</a>
+											<button onclick="appendRow()" >Commenter</button></td>
 
 									</tr>
 								</tbody>

@@ -38,6 +38,7 @@ public class ProjectController {
 
 		model.addAttribute("message", "".equals(message) ? "" : message);
 		model.addAttribute("Sectiontitle", "Projets");
+		model.addAttribute("tasks", microSProjetProxy.getTasksByProjectId(Long.parseLong(idd)));
 		model.addAttribute("project", microSProjetProxy.getProject(Long.parseLong(idd)));
 		return "project/getDetailsProject";
 	}

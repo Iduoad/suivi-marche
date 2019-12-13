@@ -51,4 +51,9 @@ public class Project {
 
     @OneToMany()
     private List<Task> tasks;
+    
+    @PrePersist
+    void preInsert() {
+       if ( this.getStatus() == null ) { this.setStatus("V");; }
+    }
 }

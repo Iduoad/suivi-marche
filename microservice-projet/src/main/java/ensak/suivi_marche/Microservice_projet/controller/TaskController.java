@@ -25,16 +25,25 @@ public class TaskController {
     private TaskRepository taskRepository;
 
     @GetMapping("/tasks")
-    public List<Task> getAllTasks(@RequestParam(required = true, value = "project") Long projectId) {
-        return projectRepository.findById(projectId).map(project -> {
-            return taskRepository.findByProjectId(projectId);
-        }).orElseThrow(() -> new ResourceNotFoundException("Project " + projectId + " Not Found" ));
+    public List<Task> getAllTasks() {
+            return taskRepository.findAll();
     }
 
     @GetMapping("/tasks/{task_id}")
     public Optional<Task> getTask(@PathVariable (value = "task_id") Long taskId) {
         return taskRepository.findById(taskId);
     }
+    
+    @GetMapping("/projects/{project_id}/tasks")
+    public List<Task> getTasksByProjectId(@PathVariable (value = "project_id") Long projectId) {
+        return taskRepository.findByProjectId(projectId);
+    }
+    
+    @GetMapping("/projects/{project_id}/tasks/{task_id}")
+    public Task getTasksByIdAndProjectId(@PathVariable (value = "task_id") Long taskId,@PathVariable (value = "project_id") Long projectId) {
+        return taskRepository.findByIdAndProjectId(taskId, projectId).get();
+    }
+    
     @PostMapping("/tasks")
     public Task createTask(@Valid @RequestBody Task task) {
         return taskRepository.save(task);

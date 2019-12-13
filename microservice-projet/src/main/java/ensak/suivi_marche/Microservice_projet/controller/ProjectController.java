@@ -29,6 +29,21 @@ public class ProjectController {
     public Optional<Project> getProject(@PathVariable (value = "project_id") Long projectId) {
         return projectRepository.findById(projectId);
     }
+    
+    @GetMapping("/services/{service_id}/projects")
+    public List<Project> getProjectsByServiceId(@PathVariable (value = "service_id") Long serviceId) {
+        return projectRepository.findByServiceId(serviceId);
+    }
+    
+    @GetMapping("/employees/{employee_id}/projects")
+    public List<Project> getProjectsByEmployeeId(@PathVariable (value = "employee_id") Long employeeId) {
+        return projectRepository.findByEmployeeId(employeeId);
+    }
+    
+    @GetMapping("/services/{service_id}/employees/{employee_id}/projects")
+    public List<Project> getProjectsByServiceIdAndEmployeeId(@PathVariable (value = "service_id") Long serviceId,@PathVariable (value = "employee_id") Long employeeId) {
+        return projectRepository.findByServiceIdAndEmployeeId(serviceId, employeeId);
+    }
 
     @PostMapping("/projects")
     public Project createProject( @RequestBody Project project) {

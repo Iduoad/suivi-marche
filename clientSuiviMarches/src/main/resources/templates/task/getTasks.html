@@ -52,37 +52,20 @@
 				<div class="container-fluid">
 					<!-- buttons ajouts -->
 					<div class="card">
-						<div class="col-md-12">
+						<div class="col-md-12 ">
 							<div class="places-buttons">
 								<div class="row">
 									<div class="col-md-6 ml-auto mr-auto text-center">
 										<h4 class="card-title"></h4>
 									</div>
 								</div>
-								<div class="row" style="margin-top: 22px;">
-									<div class="col-lg-8 col-md-10 ml-auto mr-auto">
+								<div class="row " style="margin-top: 22px;">
+									<div class="col-lg-8 col-md-10 ml-auto mr-auto ">
 										<div class="row">
-											<div class="col-md-6">
-												<button class="btn btn-primary btn-block"
-													onclick="md.showNotification('top','center')">Modifier
-													le projet</button>
-											</div>
-											<div class="col-md-6">
-												<button class="btn btn-primary btn-block"
-													onclick="md.showNotification('top','right')">Supprimer
-													le projet</button>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-6">
-												<button class="btn btn-primary btn-block"
-													onclick="md.showNotification('top','center')">Valider
-													le projet</button>
-											</div>
-											<div class="col-md-6">
-												<button class="btn btn-primary btn-block"
-													onclick="md.showNotification('top','right')">Débloquer
-													le budget</button>
+												<div class="col-md-6">
+												<a th:href="@{addOrUpdateTaskRedirect}"><button
+														class="btn btn-primary btn-block">Ajouter une
+														tâche</button></a>
 											</div>
 										</div>
 									</div>
@@ -99,50 +82,37 @@
 						<div class="col-md-12">
 							<div class="card">
 								<div class="card-header card-header-primary">
-									<h4 class="card-title ">Projets</h4>
-									<p class="card-category">Liste de tous les projets avec
-										leurs status</p>
+									<h4 class="card-title ">Tâches</h4>
+									<p class="card-category">Détails des tâches</p>
 								</div>
 								<div class="card-body">
 									<div class="table-responsive">
 										<table class="table">
 											<thead class=" text-primary">
-												<th>Objectif</th>
-												<th>Matériels</th>
-												<th>Logiciels</th>
-												<th>Licences</th>
-												<th>Durée</th>
-												<th>Budget</th>
-												<th>Créateur</th>
-												<th>Status</th>
-												<th>Tâches</th>
+												<th>Libellé</th>
+												<th>Description</th>
 												<th>Actions</th>
 											</thead>
 											<tbody>
-												<tr>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td class="text-primary"></td>
-													<td class="text-primary"></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td class="td-actions text-right">
-														<button type="button" rel="tooltip"
-															title="Modifier le projet"
-															class="btn btn-primary btn-link btn-sm">
-															<i class="material-icons">edit</i>
-														</button>
-														<button type="button" rel="tooltip"
-															title="Supprimer le projet"
-															class="btn btn-danger btn-link btn-sm">
-															<i class="material-icons">close</i>
-														</button>
-													</td>
-												</tr>
-
+												<tr:block th:each="task : ${tasks}">
+													<td th:text="${task.label}"></td>
+													<td th:text="${task.description}"></td>
+													<td class="td-actions text-left"><a
+														th:href="@{addOrUpdateTaskRedirect(idd=${task.id})}">
+															<button type="button" rel="tooltip"
+																title="Modifier la tâche"
+																class="btn btn-primary btn-link btn-sm">
+																<i class="material-icons">edit</i>
+															</button>
+													</a> <a th:href="@{deleteTask(idd=${task.id})}"
+														onclick="return confirm('Voulez-vous supprimer ce service?');">
+															<button type="button" rel="tooltip"
+																title="Supprimer la tâche"
+																class="btn btn-danger btn-link btn-sm">
+																<i class="material-icons">close</i>
+															</button>
+													</a></td>
+													</tr>
 											</tbody>
 										</table>
 									</div>
@@ -152,87 +122,6 @@
 
 					</div>
 					<!-- /table -->
-
-					<!-- taches -->
-
-
-					<!-- taches by projet -->
-					<div th:fragment="tasksByProject">
-						<div class="row">
-							<div class="col-lg-4 col-md-12">
-								<div class="card" th:each="task : ${tasks}">
-									<div class="card-header card-header-tabs "
-										th:classappend="${#strings.equals(task.status,'A')} ? card-header-danger :(${#strings.equals(task.status,'C')} ? card-header-warning : card-header-success)">
-										<div class="nav-tabs-navigation">
-											<div class="nav-tabs-wrapper">
-												<span class="nav-tabs-title">Tache :</span>
-												<ul class="nav nav-tabs" data-tabs="tabs">
-													<li class="nav-item"><a class="nav-link active"
-														href="#profile" data-toggle="tab"> <i
-															class="material-icons">bug_report</i> Bugs
-															<div class="ripple-container"></div>
-													</a></li>
-
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="card-body">
-										<div class="tab-content">
-											<div class="tab-pane active">
-												<table class="table">
-													<tbody th:id="${task.id}">
-														<tr>
-
-															<td>Sign contract for "What are conference
-																organizers afraid of?"</td>
-
-														</tr>
-														<tr>
-
-															<td>Lines From Great Russian Literature? Or E-mails
-																From My Boss?</td>
-
-														</tr>
-														<tr>
-
-															<td>Flooded: One year later, assessing what was lost
-																and what was found when a ravaging rain swept through
-																metro Detroit</td>
-
-														</tr>
-														<tr>
-
-															<td>Create 4 Invisible User Experiences you Never
-																Knew About</td>
-														</tr>
-
-														<tr>
-
-															<td class="text-center"><a href="#pablo"
-																class="btn btn-primary btn-round">Commenter</a> <a
-																href="#pablo" class="btn btn-primary btn-round">Voter</a>
-																<button onclick="appendRow()" >Commenter</button></td>
-
-														</tr>
-													</tbody>
-												</table>
-											</div>
-
-
-										</div>
-									</div>
-								</div>
-							</div>
-
-						</div>
-
-					</div>
-
-					<!-- /taches by projet -->
-
-
-					<!-- taches -->
 				</div>
 			</div>
 
@@ -625,43 +514,6 @@
 																});
 											});
 						});
-
-		function appendRow() {
-
-			
-		
-
-			$('#4').append(
-
-					'<tr>'+
-					'<td>'+
-					'<div class="card-body">'+
-					'<form >'+
-
-						
-					'	<div class="row">'+
-						
-					'		<div class="col-md-8">'+
-					'			<div class="form-group">'+
-					'				<label class="bmd-label-floating">Libellé</label> <input'+
-					'					th:field="*{label}" type="text" class="form-control">'+
-					'			</div>'+
-					'		</div>'+
-					'		<div class="col-md-8">'+
-					'			<div class="form-group">'+
-					'				<label class="bmd-label-floating">Text</label> <input'+
-					'					th:field="*{label}" type="text" class="form-control">'+
-					'			</div>'+
-					'		</div>'+
-					'	</div>'+
-					'	</form>'+
-					'	</div>'+
-					'	</td>'+
-					'	</tr>'
-
-					);
-
-		};
 	</script>
 </body>
 
