@@ -3,6 +3,9 @@ package com.employe.microemploye.web.controller;
 import com.employe.microemploye.dao.EmployeeDao;
 import com.employe.microemploye.model.Employee;
 import com.employe.microemploye.web.exceptions.EmployeeNotFoundException;
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +23,14 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeDao employeeDao ;
+    
+    @PostMapping(value="/employees/authentification")
+    public Employee authentification (@RequestBody Employee employee )
+	{
+			return Optional.of(employeeDao.authentification(employee.getEmail(), employee.getPassword())).filter(list -> list.size() > 0).map(list -> list.get(0)).orElse(null);
+	}
+	
+	
 
     @RequestMapping(value="/employees", method= RequestMethod.GET)
     public List<Employee> getAllEmployees() {
@@ -29,6 +40,7 @@ public class EmployeeController {
 
     @RequestMapping(value = "/employees/{id}", method = RequestMethod.GET)
     public Optional<Employee> getEmployeeById(@PathVariable Long id) throws EmployeeNotFoundException {
+
 
         Optional<Employee> employee = employeeDao.findById(id);
 

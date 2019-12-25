@@ -20,6 +20,9 @@ public interface MicroserviceEmployeeProxy {
 
 	//Employee
 	
+	 @PostMapping(value="/employees/authentification")
+	    public Employee authentification (Employee employee );
+	
     @RequestMapping(value="/employees", method= RequestMethod.GET)
     public List<Employee> getAllEmployees();
 

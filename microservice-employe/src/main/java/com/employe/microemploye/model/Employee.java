@@ -14,6 +14,7 @@ public class Employee {
     private String prenom ;
     private String email ;
     private String job ; // fonctionnaire, chef, directeur
+    private String password;
 
 
     @OneToOne()
@@ -22,8 +23,22 @@ public class Employee {
 
     public Employee() {
     }
+    
+    
 
-    public Long getId() {
+    public String getPassword() {
+		return password;
+	}
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+
+	public Long getId() {
         return id;
     }
 
@@ -78,6 +93,10 @@ public class Employee {
 		return "Employee [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", job=" + job
 				+ ", service=" + service + "]";
 	}
+	@PrePersist
+    void preInsert() {
+       if ( this.getService() == null ) { this.setService(null);; }
+    }
 
    
 }

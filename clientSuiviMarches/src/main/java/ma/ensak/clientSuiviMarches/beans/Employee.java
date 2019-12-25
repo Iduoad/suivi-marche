@@ -21,11 +21,13 @@ public class Employee {
     String email ;
     String job ; // fonctionnaire, chef, directeur
     Service service ;
+    String password;
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", job=" + job
-				+ ", service=" + service + "]";
+				+ ", service=" + service + ", password=" + password + "]";
 	}
+	
     
 
    

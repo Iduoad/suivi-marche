@@ -48,7 +48,8 @@ public class EmployeeController {
 		employee.setPrenom(params.get("prenom"));
 		employee.setEmail(params.get("email"));
 		employee.setJob(params.get("job"));
-		employee.setService(microSEProxy.getServiceById(Long.parseLong(params.get("service"))).get());
+		employee.setPassword(params.get("password"));
+		if(params.get("service") != null) employee.setService(microSEProxy.getServiceById(Long.parseLong(params.get("service"))).get());
 
 		Long id = employee.getId();
 		ModelAndView modelAndView = null ;
