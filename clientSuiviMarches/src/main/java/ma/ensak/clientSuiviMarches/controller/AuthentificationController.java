@@ -46,7 +46,7 @@ public class AuthentificationController {
 		 else
 		 {
 			 HttpSession session = request.getSession();
-			 session.setAttribute("user", e);
+			 session.setAttribute("userSession", e);
 			 modelAndView = new ModelAndView("redirect:/accueilRedirect");
 		 }
 		 
@@ -57,7 +57,7 @@ public class AuthentificationController {
 		public String logOut(   HttpServletRequest request)
 		{
 
-			if(request.getSession(false) == null ||   request.getSession(false).getAttribute("user") == null)  return "redirect:/authentification";
+			if(request.getSession(false) == null ||   request.getSession(false).getAttribute("userSession") == null)  return "redirect:/authentification";
 			HttpSession s = request.getSession(false) ;
 			if(s != null)s.invalidate();
 			return "redirect:/authentificationRedirect";

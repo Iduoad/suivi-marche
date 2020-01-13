@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ma.ensak.clientSuiviMarches.beans.Service;
 import ma.ensak.clientSuiviMarches.proxies.MicroserviceEmployeeProxy;
+import ma.ensak.clientSuiviMarches.roles.Roles;
 
 
 
@@ -27,6 +28,7 @@ public class ServiceController {
 	@RequestMapping(value="addOrUpdateServiceRedirect")
 	public String addOrUpdateService(HttpServletRequest request , Model model ,@RequestParam(defaultValue="")String message ,@RequestParam(defaultValue="") String idd  , Service service)
 	{
+		if(!Roles.isALL(request)) return "redirect:/authentification"; 
 		
 		model.addAttribute("message", "".equals(message) ? "" : message );
 		model.addAttribute("Sectiontitle", "Services");
@@ -37,6 +39,8 @@ public class ServiceController {
 	@RequestMapping(value="addOrUpdateService", method=RequestMethod.POST)
 	public ModelAndView addOrUpdateService( HttpServletRequest request  ,RedirectAttributes redirectAttributes, Service service)
 	{
+		
+		if(!Roles.isALL(request)) return new ModelAndView("redirect:/authentification");
 		
 		Long id = service.getId();
 		ModelAndView modelAndView = null ;
@@ -56,6 +60,7 @@ public class ServiceController {
 	@RequestMapping(value="deleteService")
 	public ModelAndView deleteService( HttpServletRequest request , @RequestParam(defaultValue="")String idd)
 	{
+		if(!Roles.isALL(request)) return new ModelAndView("redirect:/authentification");
 		
 		microSEProxy.deleteService(Long.parseLong(idd));;
 		return new ModelAndView("redirect:/getServices","message","Suppréssion réussie");
@@ -64,6 +69,7 @@ public class ServiceController {
 	@RequestMapping(value="getServices")
 	public String getServices( HttpServletRequest request , Model model,@RequestParam(defaultValue="") String message)
 	{
+		if(!Roles.isALL(request)) return "redirect:/authentification";
 		
 		model.addAttribute("message", "".equals(message) ? "" : message );
 		model.addAttribute("services", microSEProxy.getAllServices());

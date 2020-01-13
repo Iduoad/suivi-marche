@@ -5,15 +5,23 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "projects")
 @Getter 
 @Setter
-public class Project {
+public class Project implements Serializable{
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -52,8 +60,5 @@ public class Project {
     @OneToMany()
     private List<Task> tasks;
     
-    @PrePersist
-    void preInsert() {
-       if ( this.getStatus() == null ) { this.setStatus("V");; }
-    }
+    private Date dateValidateOrNot;
 }

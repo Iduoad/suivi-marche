@@ -1,5 +1,7 @@
 package ma.ensak.clientSuiviMarches.beans;
 
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 
@@ -15,10 +17,14 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Project {
+public class Project implements Serializable{
 
    
-    Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	Long id;
     String objective;
     String description;
     String requiredHardware;
@@ -30,5 +36,6 @@ public class Project {
     Long employeeId;
     Long serviceId;
     List<Task> tasks;
+    Date dateValidateOrNot;
 
 }

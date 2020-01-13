@@ -1,5 +1,11 @@
 <!-- sidebar -->
 <div th:fragment="sideBar">
+
+<div th:switch="${session.userSession.job}">
+
+			  <span th:case="'A'">
+			  
+			  
 	<div class="sidebar" data-color="purple" data-background-color="white"
 		data-image="../assets/img/sidebar-1.jpg">
 		<!--
@@ -13,22 +19,30 @@
 		</div>
 		<div class="sidebar-wrapper">
 			<ul class="nav">
-				<li class="nav-item  " th:classappend="${#httpServletRequest.getRequestURI() == '/accueil' ? 'active':''}"><a class="nav-link"
-					th:href="@{accueil}"> <i class="material-icons">dashboard</i>
+				<li class="nav-item  " th:classappend="${#httpServletRequest.getRequestURI() == '/accueil' || #httpServletRequest.getRequestURI() == '/accueilRedirect'? 'active':''}"><a class="nav-link"
+					th:href="@{accueil}"> <i class="material-icons">home</i>
 						<p>Accueil</p>
 				</a></li>
 				<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getServices' || #httpServletRequest.getRequestURI() == '/addOrUpdateServiceRedirect' ? 'active':''}"><a class="nav-link"
-					th:href="@{getServices}"> <i class="material-icons">person</i>
+					th:href="@{getServices}"> <i class="material-icons">apartment</i>
 						<p>Services</p>
 				</a></li>
 				<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getEmployees' || #httpServletRequest.getRequestURI() == '/addOrUpdateEmployeeRedirect'? 'active':''}"><a class="nav-link"
-					th:href="@{getEmployees}"> <i class="material-icons">person</i>
+					th:href="@{getEmployees}"> <i class="material-icons">assignment_ind</i>
 						<p>Employees</p>
 				</a></li>
-					<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getProjects' || #httpServletRequest.getRequestURI() == '/addOrUpdateProjectRedirect' || #httpServletRequest.getRequestURI() == '/getDetailsProject' ||
-					#httpServletRequest.getRequestURI() == '/addOrUpdateTaskRedirect' || #httpServletRequest.getRequestURI() == '/getTasks'?'active':''}"><a class="nav-link"
-					th:href="@{getProjects}"> <i class="material-icons">person</i>
+					<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getProjects' || #httpServletRequest.getRequestURI() == '/addOrUpdateProjectRedirect' || #httpServletRequest.getRequestURI() == '/getDetailsProject'
+					?'active':''}"><a class="nav-link"
+					th:href="@{getProjects}"> <i class="material-icons">developer_board</i>
 						<p>Projets</p>
+				</a></li>
+				<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getTasksRedirect'||#httpServletRequest.getRequestURI() == '/addOrUpdateTaskRedirect' || #httpServletRequest.getRequestURI() == '/getTasks' ? 'active':''}"><a class="nav-link"
+					th:href="@{getTasksRedirect}"> <i class="material-icons">assignment</i>
+						<p>Taches</p>
+				</a></li>
+				<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getNotifications' ? 'active':''}"><a class="nav-link"
+					th:href="@{getNotifications}"> <i class="material-icons">notifications</i>
+						<p>Notifications</p>
 				</a></li>
 					<li class="nav-item" ><a class="nav-link"
 					th:href="@{logOut}"> <i class="material-icons">exit_to_app</i>
@@ -37,6 +51,164 @@
 				
 			</ul>
 		</div>
+	</div>
+	
+	
+	</span>
+	
+	 <span th:case="'D'">
+	 
+	 
+	 	<div class="sidebar" data-color="purple" data-background-color="white"
+		data-image="../assets/img/sidebar-1.jpg">
+		<!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+        Tip 2: you can also add an image using data-image tag
+    -->
+		<div class="logo">
+			<a href="http://www.creative-tim.com" class="simple-text logo-normal">
+				Gestion des projets </a>
+		</div>
+		<div class="sidebar-wrapper">
+			<ul class="nav">
+				<li class="nav-item  " th:classappend="${#httpServletRequest.getRequestURI() == '/accueil' || #httpServletRequest.getRequestURI() == '/accueilRedirect'? 'active':''}"><a class="nav-link"
+					th:href="@{accueil}"> <i class="material-icons">home</i>
+						<p>Accueil</p>
+				</a></li>
+				<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getServices' || #httpServletRequest.getRequestURI() == '/addOrUpdateServiceRedirect' ? 'active':''}"><a class="nav-link"
+					th:href="@{getServices}"> <i class="material-icons">apartment</i>
+						<p>Services</p>
+				</a></li>
+				<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getEmployees' || #httpServletRequest.getRequestURI() == '/addOrUpdateEmployeeRedirect'? 'active':''}"><a class="nav-link"
+					th:href="@{getEmployees}"> <i class="material-icons">assignment_ind</i>
+						<p>Employees</p>
+				</a></li>
+					<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getProjects' || #httpServletRequest.getRequestURI() == '/addOrUpdateProjectRedirect' || #httpServletRequest.getRequestURI() == '/getDetailsProject'
+					?'active':''}"><a class="nav-link"
+					th:href="@{getProjects}"> <i class="material-icons">developer_board</i>
+						<p>Projets</p>
+				</a></li>
+				<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getTasksRedirect'||#httpServletRequest.getRequestURI() == '/addOrUpdateTaskRedirect' || #httpServletRequest.getRequestURI() == '/getTasks' ? 'active':''}"><a class="nav-link"
+					th:href="@{getTasksRedirect}"> <i class="material-icons">assignment</i>
+						<p>Taches</p>
+				</a></li>
+				<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getNotifications' ? 'active':''}"><a class="nav-link"
+					th:href="@{getNotifications}"> <i class="material-icons">notifications</i>
+						<p>Notifications</p>
+				</a></li>
+					<li class="nav-item" ><a class="nav-link"
+					th:href="@{logOut}"> <i class="material-icons">exit_to_app</i>
+						<p>Deconnexion</p>
+				</a></li>
+				
+			</ul>
+		</div>
+	</div>
+	 
+	 
+	 
+	 </span>
+	 
+	 <span th:case="'C'">
+	 
+	 	<div class="sidebar" data-color="purple" data-background-color="white"
+		data-image="../assets/img/sidebar-1.jpg">
+		<!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+        Tip 2: you can also add an image using data-image tag
+    -->
+		<div class="logo">
+			<a href="http://www.creative-tim.com" class="simple-text logo-normal">
+				Gestion des projets </a>
+		</div>
+		<div class="sidebar-wrapper">
+			<ul class="nav">
+				<li class="nav-item  " th:classappend="${#httpServletRequest.getRequestURI() == '/accueil' || #httpServletRequest.getRequestURI() == '/accueilRedirect'? 'active':''}"><a class="nav-link"
+					th:href="@{accueil}"> <i class="material-icons">home</i>
+						<p>Accueil</p>
+				</a></li>
+				<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getEmployees' || #httpServletRequest.getRequestURI() == '/addOrUpdateEmployeeRedirect'? 'active':''}"><a class="nav-link"
+					th:href="@{getEmployees}"> <i class="material-icons">assignment_ind</i>
+						<p>Employees</p>
+				</a></li>
+					<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getProjects' || #httpServletRequest.getRequestURI() == '/addOrUpdateProjectRedirect' || #httpServletRequest.getRequestURI() == '/getDetailsProject'
+					?'active':''}"><a class="nav-link"
+					th:href="@{getProjects}"> <i class="material-icons">developer_board</i>
+						<p>Projets</p>
+				</a></li>
+				<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getTasksRedirect'||#httpServletRequest.getRequestURI() == '/addOrUpdateTaskRedirect' || #httpServletRequest.getRequestURI() == '/getTasks' ? 'active':''}"><a class="nav-link"
+					th:href="@{getTasksRedirect}"> <i class="material-icons">assignment</i>
+						<p>Taches</p>
+				</a></li>
+				<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getNotifications' ? 'active':''}"><a class="nav-link"
+					th:href="@{getNotifications}"> <i class="material-icons">notifications</i>
+						<p>Notifications</p>
+				</a></li>
+					<li class="nav-item" ><a class="nav-link"
+					th:href="@{logOut}"> <i class="material-icons">exit_to_app</i>
+						<p>Deconnexion</p>
+				</a></li>
+				
+			</ul>
+		</div>
+	</div>
+	
+	
+	 </span>
+	 
+	 <span th:case="'F'">
+	 
+	 	<div class="sidebar" data-color="purple" data-background-color="white"
+		data-image="../assets/img/sidebar-1.jpg">
+		<!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+        Tip 2: you can also add an image using data-image tag
+    -->
+		<div class="logo">
+			<a href="http://www.creative-tim.com" class="simple-text logo-normal">
+				Gestion des projets </a>
+		</div>
+		<div class="sidebar-wrapper">
+			<ul class="nav">
+				<li class="nav-item  " th:classappend="${#httpServletRequest.getRequestURI() == '/accueil' || #httpServletRequest.getRequestURI() == '/accueilRedirect'? 'active':''}"><a class="nav-link"
+					th:href="@{accueil}"> <i class="material-icons">home</i>
+						<p>Accueil</p>
+				</a></li>
+			
+					<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getProjects' || #httpServletRequest.getRequestURI() == '/addOrUpdateProjectRedirect' || #httpServletRequest.getRequestURI() == '/getDetailsProject'
+					?'active':''}"><a class="nav-link"
+					th:href="@{getProjects}"> <i class="material-icons">developer_board</i>
+						<p>Projets</p>
+				</a></li>
+				<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getTasksRedirect'||#httpServletRequest.getRequestURI() == '/addOrUpdateTaskRedirect' || #httpServletRequest.getRequestURI() == '/getTasks' ? 'active':''}"><a class="nav-link"
+					th:href="@{getTasksRedirect}"> <i class="material-icons">assignment</i>
+						<p>Taches</p>
+				</a></li>
+				<li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/getNotifications' ? 'active':''}"><a class="nav-link"
+					th:href="@{getNotifications}"> <i class="material-icons">notifications</i>
+						<p>Notifications</p>
+				</a></li>
+					<li class="nav-item" ><a class="nav-link"
+					th:href="@{logOut}"> <i class="material-icons">exit_to_app</i>
+						<p>Deconnexion</p>
+				</a></li>
+				
+			</ul>
+		</div>
+	</div>
+	
+	
+	 </span>
+	 
+	 
+	
+	
+	
+	
+	
 	</div>
 </div>
 
