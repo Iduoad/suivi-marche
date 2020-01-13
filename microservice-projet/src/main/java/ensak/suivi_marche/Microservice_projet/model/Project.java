@@ -6,6 +6,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -58,6 +60,7 @@ public class Project implements Serializable{
     private Long serviceId;
 
     @OneToMany()
+    @JsonIgnore
     private List<Task> tasks;
     
     private Date dateValidateOrNot;
