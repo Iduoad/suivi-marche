@@ -1,0 +1,64 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    container_name: mysql-db
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+    volumes:
+      - ./docker/provision/mysql/init:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_USER: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    networks:
+      - microservice-net
+
+  config-server:
+    build: config-server
+    restart: unless-stopped
+    ports:
+      - "8888:8888"
+    depends_on:
+      - db
+    networks:
+      - microservice-net
+
+
+  microservice-employe:
+    build: ./microservice-employe
+    restart: always
+    depends_on:
+      - db
+      - config-server
+    networks:
+      - microservice-net
+
+  microservice-projet:
+    build: ./microservice-projet
+    restart: always
+    depends_on:
+      - db
+      - config-server
+    networks:
+      - microservice-net
+
+  client-suivi:
+    build: ./clientSuiviMarches
+    restart: always
+    depends_on:
+      - db
+      - config-server
+    ports:
+      - "8080:8080"
+    networks:
+      - microservice-net
+
+volumes:
+  db:
+    driver: local
+networks:
+  microservice-net:
+    driver: bridge
