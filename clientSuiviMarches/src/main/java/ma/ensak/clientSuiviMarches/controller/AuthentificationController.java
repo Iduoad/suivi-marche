@@ -47,7 +47,7 @@ public class AuthentificationController {
 		 {
 			 HttpSession session = request.getSession();
 			 session.setAttribute("userSession", e);
-			 modelAndView = new ModelAndView("redirect:/accueilRedirect");
+			 modelAndView = new ModelAndView("redirect:/accueil");
 		 }
 		 
 		 return modelAndView ;

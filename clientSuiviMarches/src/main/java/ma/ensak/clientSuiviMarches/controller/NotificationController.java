@@ -32,11 +32,11 @@ public class NotificationController {
 		
 		microSNProxy.markNotifAsRead(Long.parseLong(idd));
 		Notification notification=microSNProxy.getNotificationById(Long.parseLong(idd));
+		
 		model.addAttribute("Sectiontitle", "Notifications");
 		model.addAttribute("notification", notification);
 		model.addAttribute("employee", microSEProxy.getEmployeeById(notification.getEmployeeId()).get());
-		model.addAttribute("objectiveOfProject", microSPProxy.getProject(notification.getProjectId()).get().getObjective());
-		model.addAttribute("descriptionOfProject", microSPProxy.getProject(notification.getProjectId()).get().getDescription());
+		
 		
 		return "notification/getDetailsNotification";
 	}

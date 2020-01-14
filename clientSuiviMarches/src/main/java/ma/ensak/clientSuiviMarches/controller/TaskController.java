@@ -73,12 +73,12 @@ public class TaskController {
 		ModelAndView modelAndView = null;
 		if (id != null) {
 			microSProjetProxy.updateTask(id, task);
-			modelAndView = new ModelAndView("redirect:/getTasks", "message", "Tâche modifié avec succès");
+			modelAndView = new ModelAndView("redirect:/getTasksRedirect", "message", "Tâche modifié avec succès");
 		}
 
 		else {
 			microSProjetProxy.createTask(task);
-			modelAndView = new ModelAndView("redirect:/getTasks", "message", "Tâche ajouté avec succès");
+			modelAndView = new ModelAndView("redirect:/getTasksRedirect", "message", "Tâche ajouté avec succès");
 
 		}
 
@@ -91,7 +91,7 @@ public class TaskController {
 			return new ModelAndView("redirect:/authentification");
 
 		microSProjetProxy.deleteTask(Long.parseLong(idd));
-		return new ModelAndView("redirect:/getTasks", "message", "Suppréssion réussie");
+		return new ModelAndView("redirect:/getTasksRedirect", "message", "Suppréssion réussie");
 	}
 
 	@RequestMapping(value = "getTasks")

@@ -43,8 +43,9 @@ public class ProjectController {
 			@RequestParam(defaultValue = "") String message, @RequestParam(defaultValue = "") String idd,
 			Project project) {
 
-		if(!Roles.isALL(request)) return "redirect:/authentification";
-		
+		if (!Roles.isALL(request))
+			return "redirect:/authentification";
+
 		model.addAttribute("message", "".equals(message) ? "" : message);
 		model.addAttribute("Sectiontitle", "Projets");
 		model.addAttribute("project", "".equals(idd) ? project == null ? new Project() : project
@@ -52,27 +53,19 @@ public class ProjectController {
 		return "project/addOrUpdateProject";
 	}
 
-	@RequestMapping(value = "getDetailsProject")
-	public String getDetailsProject(HttpServletRequest request, Model model,
-			@RequestParam(defaultValue = "") String message, @RequestParam(defaultValue = "") String idd) {
-
-		if(!Roles.isALL(request)) return "redirect:/authentification";
-		
-		model.addAttribute("message", "".equals(message) ? "" : message);
-		model.addAttribute("Sectiontitle", "Projets");
-		model.addAttribute("tasks", microSProjetProxy.getTasksByProjectId(Long.parseLong(idd)));
-		model.addAttribute("project", microSProjetProxy.getProject(Long.parseLong(idd)));
-		return "project/getDetailsProject";
-	}
+	
 
 	@RequestMapping(value = "addOrUpdateProject", method = RequestMethod.POST)
 	public ModelAndView addOrUpdateProject(HttpServletRequest request, RedirectAttributes redirectAttributes,
 			Project project) {
 
 		ModelAndView modelAndView = null;
-		if(!Roles.isALL(request)) return new ModelAndView("redirect:/authentification");
+		if (!Roles.isALL(request))
+			return new ModelAndView("redirect:/authentification");
 		Long id = project.getId();
 		Employee employee = (Employee) request.getSession(false).getAttribute("userSession");
+		project.setEmployeeId(employee.getId());
+		if(employee.getService()!=null) project.setServiceId(employee.getService().getId());
 		if (id != null) {
 
 			Notification notification = new Notification(
@@ -99,8 +92,9 @@ public class ProjectController {
 	@RequestMapping(value = "deleteProject")
 	public ModelAndView deleteProject(HttpServletRequest request, @RequestParam(defaultValue = "") String idd) {
 
-		if(!Roles.isALL(request)) return new ModelAndView("redirect:/authentification");
-		
+		if (!Roles.isALL(request))
+			return new ModelAndView("redirect:/authentification");
+
 		microSProjetProxy.deleteProject(Long.parseLong(idd));
 		return new ModelAndView("redirect:/getProjects", "message", "Suppréssion réussie");
 	}
@@ -109,90 +103,111 @@ public class ProjectController {
 	public String getProjects(HttpServletRequest request, Model model,
 			@RequestParam(defaultValue = "") String message) {
 
-		if (!Roles.isALL(request)) return "redirect:/authentification";
+		if (!Roles.isALL(request))
+			return "redirect:/authentification";
+		
+		Employee employee=(Employee)request.getSession(false).getAttribute("userSession") ; 
+		
+		if (Roles.isFonctionnaire(request)) {
+			model.addAttribute("projects", this.setStatusOfProject(microSProjetProxy.getProjectsByEmployeeId(employee.getId())));
+		}
+
+		if (Roles.isChefService(request)) {
+			model.addAttribute("projects", this.setStatusOfProject(microSProjetProxy.getProjectsByServiceId(employee.getService().getId())));
+		}
+		
+		if (Roles.isAdmin (request) || Roles.isDirecteur(request)) {
+			model.addAttribute("projects", this.setStatusOfProject(microSProjetProxy.getAllProjects()));
+		}
 
 		model.addAttribute("Sectiontitle", "Projets");
 		model.addAttribute("message", "".equals(message) ? "" : message);
-		model.addAttribute("projects", this.setStatusOfProject());
+		
 		return "project/getProjects";
 	}
 
-	List<Project> setStatusOfProject() {
+	List<Project> setStatusOfProject(List<Project> projectsParam) {
 		this.setStatusOfTasks();
-		List<Project> projects = microSProjetProxy.getAllProjects();
+		List<Project> projects = projectsParam;
 		for (Project project : projects) {
 			//
 			EtatProject etatProject = new EtatProject();
 			for (Task task : microSProjetProxy.getTasksByProjectId(project.getId())) {
 				if (task.getStatus().equals("enAttente")) {
-					etatProject.setNbreEnAttente(etatProject.getNbreEnAttente()+1);
+					etatProject.setNbreEnAttente(etatProject.getNbreEnAttente() + 1);
 				}
 				if (task.getStatus().equals("enCours")) {
-					etatProject.setNbreEnCours(etatProject.getNbreEnCours()+1);
+					etatProject.setNbreEnCours(etatProject.getNbreEnCours() + 1);
 				}
 				if (task.getStatus().equals("validee")) {
-					etatProject.setNbreValide(etatProject.getNbreValide()+1);
+					etatProject.setNbreValide(etatProject.getNbreValide() + 1);
 				}
 				if (task.getStatus().equals("nonValidee")) {
-					etatProject.setNbrenNonValide(etatProject.getNbrenNonValide()+1);
+					etatProject.setNbrenNonValide(etatProject.getNbrenNonValide() + 1);
 				}
 			}
 			//
-			if (etatProject.getNbreEnAttente()==microSProjetProxy.getTasksByProjectId(project.getId()).size() && etatProject.getNbreEnCours()==0) {
+			if (etatProject.getNbreEnAttente() == microSProjetProxy.getTasksByProjectId(project.getId()).size()
+					&& etatProject.getNbreEnCours() == 0) {
 				project.setStatus("enAttente");
 			}
-			if (etatProject.getNbreEnCours()>0) {
+			if (etatProject.getNbreEnCours() > 0) {
 				project.setStatus("enCours");
 			}
-			if (etatProject.getNbreValide()==microSProjetProxy.getTasksByProjectId(project.getId()).size() && microSProjetProxy.getTasksByProjectId(project.getId()).size()>0 ) {
+			if (etatProject.getNbreValide() == microSProjetProxy.getTasksByProjectId(project.getId()).size()
+					&& microSProjetProxy.getTasksByProjectId(project.getId()).size() > 0) {
 				project.setStatus("valide");
 			}
-			if (etatProject.getNbrenNonValide()>0) {
+			if (etatProject.getNbrenNonValide() > 0) {
 				project.setStatus("nonValide");
 			}
-			
-			/*System.out.println("projet "+project.getId()+" en attente "+etatProject.getNbreEnAttente());
-			System.out.println("projet "+project.getId()+" en cours "+etatProject.getNbreEnCours());
-			System.out.println("projet "+project.getId()+" valide "+etatProject.getNbreValide());
-			System.out.println("projet "+project.getId()+" non valide "+etatProject.getNbrenNonValide());*/
-			
+
+			/*
+			 * System.out.println("projet "+project.getId()+" en attente "+etatProject.
+			 * getNbreEnAttente());
+			 * System.out.println("projet "+project.getId()+" en cours "+etatProject.
+			 * getNbreEnCours());
+			 * System.out.println("projet "+project.getId()+" valide "+etatProject.
+			 * getNbreValide());
+			 * System.out.println("projet "+project.getId()+" non valide "+etatProject.
+			 * getNbrenNonValide());
+			 */
+
 			microSProjetProxy.createProject(project);
 		}
 		return projects;
 	}
-	
-	List<Task> setStatusOfTasks(){
-	
-			
-			List<Task> tasks=microSProjetProxy.getAllTasks();
-			LocalDate currentDate=this.convertDateToLocalDate(new Date());
-			for (Task task : tasks) {
-				LocalDate dateD=this.convertDateToLocalDate(task.getStartDate());
-				LocalDate dateF=this.convertDateToLocalDate(task.getEndDate());
-				if (currentDate.isBefore(dateD)) {
-					task.setStatus("enAttente");
-				}
-				if ((currentDate.isAfter(dateD) || currentDate.equals(dateD)) && currentDate.isBefore(dateF)) {
-					task.setStatus("enCours");
-				}
-				if (currentDate.isAfter(dateF)) {
-					task.setStatus("validee");
-				}
-				microSProjetProxy.createTask(task);
+
+	List<Task> setStatusOfTasks() {
+
+		List<Task> tasks = microSProjetProxy.getAllTasks();
+		LocalDate currentDate = this.convertDateToLocalDate(new Date());
+		for (Task task : tasks) {
+			LocalDate dateD = this.convertDateToLocalDate(task.getStartDate());
+			LocalDate dateF = this.convertDateToLocalDate(task.getEndDate());
+			if (currentDate.isBefore(dateD)) {
+				task.setStatus("enAttente");
 			}
-			
-			return tasks;
-		
+			if ((currentDate.isAfter(dateD) || currentDate.equals(dateD)) && currentDate.isBefore(dateF)) {
+				task.setStatus("enCours");
+			}
+			if (currentDate.isAfter(dateF)) {
+				task.setStatus("validee");
+			}
+			microSProjetProxy.createTask(task);
+		}
+
+		return tasks;
+
 	}
-	
+
 	@InitBinder
-    public void initBinder(WebDataBinder binder) {
-        CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
-        binder.registerCustomEditor(Date.class, editor);
-    }
-	
-	private LocalDate convertDateToLocalDate(Date date)
-	{
+	public void initBinder(WebDataBinder binder) {
+		CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
+		binder.registerCustomEditor(Date.class, editor);
+	}
+
+	private LocalDate convertDateToLocalDate(Date date) {
 		return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 

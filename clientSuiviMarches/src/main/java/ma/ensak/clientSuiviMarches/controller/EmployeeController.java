@@ -34,7 +34,7 @@ public class EmployeeController {
 	@RequestMapping(value="addOrUpdateEmployeeRedirect")
 	public String addOrUpdateEmployee(HttpServletRequest request , Model model ,@RequestParam(defaultValue="")String message ,@RequestParam(defaultValue="") String idd  , Employee employee)
 	{
-		if(!Roles.isALL(request))  return "redirect:/authentification";
+		if(!Roles.isALL(request) && Roles.isFonctionnaire(request))  return "redirect:/authentification";
 		
 		model.addAttribute("message", "".equals(message) ? "" : message );
 		model.addAttribute("Sectiontitle", "Employees");
@@ -48,7 +48,7 @@ public class EmployeeController {
 	{
 		ModelAndView modelAndView = null ; 
 		
-		if(!Roles.isALL(request))  {
+		if(!Roles.isALL(request) && Roles.isFonctionnaire(request))  {
 			modelAndView = new ModelAndView("redirect:/authentification");
 			return modelAndView;
 		}
@@ -80,7 +80,7 @@ public class EmployeeController {
 	@RequestMapping(value="deleteEmployee")
 	public ModelAndView deleteEmployee( HttpServletRequest request , @RequestParam(defaultValue="")String idd)
 	{
-		if(!Roles.isALL(request))  {
+		if(!Roles.isALL(request) && Roles.isFonctionnaire(request))  {
 			return new ModelAndView("redirect:/authentification");
 			 
 		}
@@ -93,7 +93,7 @@ public class EmployeeController {
 	public String getServices( HttpServletRequest request , Model model,@RequestParam(defaultValue="") String message)
 	{
 		
-		if(!Roles.isALL(request))  return "redirect:/authentification";
+		if(!Roles.isALL(request) && Roles.isFonctionnaire(request))  return "redirect:/authentification";
 		
 		model.addAttribute("message", "".equals(message) ? "" : message );
 		model.addAttribute("employees", microSEProxy.getAllEmployees());

@@ -63,6 +63,15 @@ public interface MicroserviceProjetProxy {
 	    @DeleteMapping("/projects/{project_id}")
 	    public ResponseEntity<?> deleteProject(@PathVariable (value = "project_id") Long projectId) ;
 	    
+	    @GetMapping("/services/{service_id}/projects")
+	    public List<Project> getProjectsByServiceId(@PathVariable (value = "service_id") Long serviceId);
+	    
+	    @GetMapping("/employees/{employee_id}/projects")
+	    public List<Project> getProjectsByEmployeeId(@PathVariable (value = "employee_id") Long employeeId) ;
+	    
+	    @GetMapping("/services/{service_id}/employees/{employee_id}/projects")
+	    public List<Project> getProjectsByServiceIdAndEmployeeId(@PathVariable (value = "service_id") Long serviceId,@PathVariable (value = "employee_id") Long employeeId) ;
+	    
 	//Tasks
 	    
 	    @GetMapping("/tasks")
